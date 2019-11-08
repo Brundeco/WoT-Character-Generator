@@ -34,3 +34,14 @@ clearGrid = () => {
 
 let newCharBtn = document.getElementById('genNewChar');
 newCharBtn.addEventListener('click', clearGrid);
+
+saveCharacter = () => {
+    const db = firebase.database();
+    console.log(db)
+    const characters = db.ref('characters');
+    characters.push(pixelArray);
+}
+
+let saveCharBtn = document.getElementById('saveChar');
+saveCharBtn.addEventListener('click', saveCharacter);
+

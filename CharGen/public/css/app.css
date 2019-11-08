@@ -38,10 +38,6 @@ body {
     background: #ffa0a0;
 }
 
-.characterRight {
-    transform: scale(1, -1);
-}
-
 .new-character {
     margin-top: 15px;
     display: flex;
