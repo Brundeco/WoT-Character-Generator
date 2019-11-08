@@ -25,6 +25,7 @@ body {
 
 .pixel:hover {
     transition: 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .no-pixel {
@@ -36,6 +37,7 @@ body {
 .no-pixel:hover {
     transition: 0.2s ease-in-out;
     background: #ffa0a0;
+    cursor: crosshair;
 }
 
 .new-character {
