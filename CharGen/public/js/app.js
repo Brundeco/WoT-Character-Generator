@@ -32,7 +32,7 @@ clearGrid = () => {
     location.reload();
 }
 
-let newCharBtn = document.getElementById('genNewChar');
+let newCharBtn = document.getElementById('clearGrid');
 newCharBtn.addEventListener('click', clearGrid);
 
 saveCharacter = () => {

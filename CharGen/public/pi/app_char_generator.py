@@ -11,20 +11,22 @@ firebase_admin.initialize_app(cred, {
 })
 
 i = 0
-on = [255, 0, 0]
+on = [130, 30, 100]
 off = [0, 0, 0]
 pixel_array = []
 key_array = []
-key = '-LtA93jCQn-2Kmf4gP-S'
+# key = '-LtA93jCQn-2Kmf4gP-S'
 
-ref = db.reference('characters/{}'.format(key))
+ref = db.reference('characters')
 snapshot = ref.get()
 
 for key in snapshot:
-        # value = snapshot[key]
-        character_key = "{}".format(key)
-        key_array.append(character_key)
-        
+    character_key = "{}".format(key)
+    print(character_key)
+    value = snapshot[key]
+    print(value)
+    key_array.append(character_key)
+
 # char_ref = db.reference('characters/{}'.format(key))
 # print(char_ref)
 
