@@ -5,6 +5,8 @@ from firebase_admin import credentials
 from firebase_admin import db
 sense = SenseHat()
 
+import time
+
 cred = credentials.Certificate('private_key/private_key.json')
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://character-generator-4d751.firebaseio.com/'
@@ -13,34 +15,23 @@ firebase_admin.initialize_app(cred, {
 i = 0
 on = [130, 30, 100]
 off = [0, 0, 0]
-pixel_array = []
-key_array = []
-# key = '-LtA93jCQn-2Kmf4gP-S'
 
-ref = db.reference('characters')
+ref = db.reference().child('characters')
 snapshot = ref.get()
+# print(snapshot)
 
-for key in snapshot:
-    character_key = "{}".format(key)
-    print(character_key)
-    value = snapshot[key]
-    print(value)
-    key_array.append(character_key)
+loopstatus = db.reference('loopstatus')
+loopval = loopstatus.get()
+print(loopval)
 
-# char_ref = db.reference('characters/{}'.format(key))
-# print(char_ref)
 
-while i < len(snapshot):
-    # print(snapshot[i])
-    if snapshot[i] == True:
+for id in snapshot:
+    char = snapshot.get(id)
+    pixel_array = []
+    for pixel in char:      
+      if pixel == True:
         pixel_array.append(on)
-    elif snapshot[i] == False:
+      else:
         pixel_array.append(off)
-    else:
-        pass
-    i += 1
-    
-sense.set_pixels(pixel_array)
-
-# ref = db.reference('characters/{}'.format(i))
-
+    sense.set_pixels(pixel_array)
+    time.sleep(2)
