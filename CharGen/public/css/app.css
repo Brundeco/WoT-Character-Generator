@@ -138,6 +138,14 @@ h1 {
     width: 120px;
     margin: 15px 15px;
     flex: 0 1 120px;
+    transition: 0.4s ease-in-out;
+}
+
+.char-preview:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transform: scale(1.05);
+    transition: 0.4s ease-in-out;
 }
 
 #closeFavList {
