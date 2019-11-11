@@ -18,20 +18,26 @@ off = [0, 0, 0]
 
 ref = db.reference().child('characters')
 snapshot = ref.get()
-# print(snapshot)
 
 loopstatus = db.reference('loopstatus')
 loopval = loopstatus.get()
 print(loopval)
 
-
-for id in snapshot:
-    char = snapshot.get(id)
-    pixel_array = []
-    for pixel in char:      
-      if pixel == True:
-        pixel_array.append(on)
-      else:
-        pixel_array.append(off)
-    sense.set_pixels(pixel_array)
-    time.sleep(2)
+if loopval:
+  for id in snapshot:
+      char = snapshot.get(id)
+      pixel_array = []
+      for pixel in char:      
+        if pixel == True:
+          pixel_array.append(on)
+        else:
+          pixel_array.append(off)
+      sense.set_pixels(pixel_array)
+      time.sleep(2)
+      
+      
+      
+      
+      
+      
+      

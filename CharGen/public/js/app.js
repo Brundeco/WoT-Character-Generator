@@ -60,6 +60,12 @@ saveCharBtn.addEventListener('click', saveCharacter);
 // Collect all saved characters from firebase database to display 
 loadListOfSavedChars = () => {
 
+    // Clear container but only delete char previews, not the exit menu element
+    let elements = document.querySelectorAll('div.char-preview')
+    elements.forEach(element => {
+        favoritesContainer.removeChild(element)
+    });
+
     // Change class from display-none to display-flex to show div
     favoritesContainer.classList.add('display-flex');
 
@@ -125,3 +131,17 @@ document.addEventListener('click', function (e) {
         })
     })
 }, false);
+
+
+// Activate loop on raspberry pi
+toggleLedmatrixLoop = () => {
+    const db = firebase.database();
+    db.ref('/loopstatus').once('value').then(function (snapshot) {
+        let newVal = snapshot.val();
+        newVal = !newVal;
+        db.ref().update({ loopstatus: newVal });
+    })
+}
+
+let triggerLoopBtn = document.getElementById('activateLoop');
+triggerLoopBtn.addEventListener('click', toggleLedmatrixLoop)
