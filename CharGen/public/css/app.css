@@ -45,8 +45,8 @@ h1 {
  }
 
 .main-container {
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 25px;
@@ -159,7 +159,7 @@ h1 {
     mix-blend-mode: hard-light;
 }
 
-#closeFavList {
+#favoritesCharList {
     width: 50px;
     height: 50px;
     position: fixed;
@@ -170,16 +170,16 @@ h1 {
     align-items: center;
 }
 
-#closeFavList:hover {
+#favoritesCharList:hover {
     cursor: pointer;
 }
 
-#closeFavList:hover .line-top {
+#favoritesCharList:hover .line-top {
     transform: rotate(-45deg);
     transition: 0.4s ease-in-out;
 }
 
-#closeFavList:hover .line-bottom {
+#favoritesCharList:hover .line-bottom {
     transform: rotate(45deg);
     transition: 0.4s ease-in-out;
 }

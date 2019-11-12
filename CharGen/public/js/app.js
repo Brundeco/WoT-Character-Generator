@@ -1,6 +1,12 @@
-let pixelArray = new Array(64).fill(false);
+// Import all DOM elements
 let mainContainer = document.querySelector('div', '.main-container');
 let favoritesContainer = document.getElementById('favoContainer');
+let favoritesCharList = document.getElementById('favoritesCharList');
+let triggerLoopBtn = document.getElementById('activateLoop');
+let clearGridBtn = document.getElementById('clearGrid');
+let saveCharBtn = document.getElementById('saveChar');
+let showCharsBtn = document.getElementById('loadChars');
+let pixelArray = new Array(64).fill(false);
 
 
 // Initialize or regenerate grid based on values in pixelArray
@@ -40,8 +46,6 @@ document.addEventListener('click', function (e) {
 clearGrid = () => {
     location.reload();
 }
-
-let clearGridBtn = document.getElementById('clearGrid');
 clearGridBtn.addEventListener('click', clearGrid);
 
 
@@ -52,14 +56,11 @@ saveCharacter = () => {
     characters.push(pixelArray);
     setTimeout(() => { location.reload() }, 1000);
 }
-
-let saveCharBtn = document.getElementById('saveChar');
 saveCharBtn.addEventListener('click', saveCharacter);
 
 
 // Collect all saved characters from firebase database to display 
 loadListOfSavedChars = () => {
-
     // Clear container but only delete char previews, not the exit menu element
     let elements = document.querySelectorAll('div.char-preview')
     elements.forEach(element => {
@@ -68,7 +69,6 @@ loadListOfSavedChars = () => {
 
     // Change class from display-none to display-flex to show div
     favoritesContainer.classList.add('display-flex');
-
     let autoIncr = 0;
     const db = firebase.database();
     const characters = db.ref('characters');
@@ -82,6 +82,7 @@ loadListOfSavedChars = () => {
             previewContainer.className = 'char-preview fade-in'
             previewContainer.id = autoIncr++ // this id is used later to show character on grid
             favoritesContainer.appendChild(previewContainer)
+            previewContainer.addEventListener('click', () => displayCharsInUI(previewContainer.id))
 
             // create a childdiv for each value in characterKey (64 vals per key)
             let values = data.val();
@@ -93,28 +94,21 @@ loadListOfSavedChars = () => {
         });
     })
 }
-
-let showCharsBtn = document.getElementById('loadChars');
 showCharsBtn.addEventListener('click', loadListOfSavedChars);
 
 
 // Close list with characters by removing display-flex class
-let closeFav = document.getElementById('closeFavList');
-closeFav.addEventListener('click', e = () => {
-    let closeNav = document.getElementById('favoContainer')
-    closeNav.classList.remove('display-flex')
-})
+closeFavCharList = () => {
+    favoritesContainer.classList.remove('display-flex')
+}
+favoritesCharList.addEventListener('click', closeFavCharList)
 
 
 // Display characters on main grid
-document.addEventListener('click', function (e) {
-    if (!e.target.matches('.char-preview')) return;
-    e.preventDefault();
-
+displayCharsInUI = (id) => {
     const db = firebase.database();
     const characters = db.ref('characters');
-    let closeNav = document.getElementById('favoContainer')
-    let targetCharId = e.target.id
+    let targetCharId = id
 
     characters.once('value').then(function (snapshot) {
         // targetCharId corresponds to correct char key in database
@@ -122,15 +116,16 @@ document.addEventListener('click', function (e) {
         db.ref('/characters/' + targetCharKey).once('value').then(function (snapshot) {
             // Get the pixelarray of clicked character
             let targetCharArray = snapshot.val()
+            // console.log(targetCharArray)
             // update pixelarray once again
             pixelArray = targetCharArray
             // Regenerate grid to display character in UI
             createGrid();
             // Remove display-flex class to close list and view char on main grid
-            closeNav.classList.remove('display-flex')
+            favoritesContainer.classList.remove('display-flex')
         })
     })
-}, false);
+}
 
 
 // Activate loop on raspberry pi
@@ -142,6 +137,4 @@ toggleLedmatrixLoop = () => {
         db.ref().update({ loopstatus: newVal });
     })
 }
-
-let triggerLoopBtn = document.getElementById('activateLoop');
 triggerLoopBtn.addEventListener('click', toggleLedmatrixLoop)
