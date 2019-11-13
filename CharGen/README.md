@@ -6,7 +6,13 @@ Auto generate characters, or built your own and show them on the sensehat of you
 
 Application is hosted on:
 
-[https://character-generator-4d751.firebaseapp.com/](https://character-generator-4d751.firebaseapp.com/) 
+[https://character-generator-4d751.firebaseapp.com/](https://character-generator-4d751.firebaseapp.com/)
+
+## GitHub repo
+
+Application is hosted on:
+
+[https://github.com/gdm-1718-brundeco/WoT-Character-Generator/tree/master/CharGen](https://github.com/gdm-1718-brundeco/WoT-Character-Generator/tree/master/CharGen)
 
 
 ## Technologies used
